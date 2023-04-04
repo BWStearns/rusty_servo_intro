@@ -17,6 +17,8 @@ If, when running `cargo run` (or running the built artifact), you're getting `Er
 dtoverlay=pwm,pin=18,func=2
 ```
 
+(thanks @drauschenbach for the fix [here](https://github.com/golemparts/rppal/issues/73#issuecomment-894719861))
+
 ### Setup sshfs for easy editing of files on the pi
 
 Install sshfs (and fuse if you're on Mac) on your local machine (one tutorial [here](https://eengstrom.github.io/musings/install-macfuse-and-sshfs-on-macos-monterey)).
@@ -38,3 +40,8 @@ NB: For cross compiling with [`cross`](https://github.com/cross-rs/cross) you ne
 cargo install cross
 cross build --target armv7-unknown-linux-gnueabihf # or specify the target in your .cargo/config
 ```
+
+### Some resources that I found helpful
+
+- [Lisa Passing's Rust Linz talk](https://www.youtube.com/watch?v=IgC2HvBesms)
+- [Gary Explains' Servo PWM video](https://www.youtube.com/watch?v=_fdwE4EznYo)
