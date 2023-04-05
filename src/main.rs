@@ -11,6 +11,34 @@ const PULSE_MIN_US: u64 = 640;
 const PULSE_NEUTRAL_US: u64 = 1540;
 const PULSE_MAX_US: u64 = 2540;
 
+fn loop_servo() -> Result<(), Box<dyn Error>> {
+    println!("Rotating servo to the right side...");
+    let pwm = Pwm::with_period(
+        Channel::Pwm0,
+        Duration::from_millis(PERIOD_MS),
+        Duration::from_micros(PULSE_MAX_US),
+        Polarity::Normal,
+        true,
+    )?;
+    loop {
+        // Rotate the servo to the opposite side.
+        println!("Rotating servo to the left side...");
+        pwm.set_pulse_width(Duration::from_micros(PULSE_MIN_US))?;
+
+        thread::sleep(Duration::from_millis(2000));
+
+        // Rotate the servo to its neutral (center) position in small steps.
+        println!("Rotating servo to the center...");
+        pwm.set_pulse_width(Duration::from_micros(PULSE_NEUTRAL_US))?;
+        thread::sleep(Duration::from_millis(2000));
+
+        // Rotate the servo to the opposite side.
+        println!("Rotating servo to the right side...");
+        pwm.set_pulse_width(Duration::from_micros(PULSE_MAX_US))?;
+        thread::sleep(Duration::from_millis(2000));
+    }
+}
+
 fn wiggle_servo() -> Result<(), Box<dyn Error>> {
     // Enable PWM channel 0 (BCM GPIO 18, physical pin 12) with the specified period,
     // and rotate the servo by setting the pulse width to its maximum value.
@@ -88,7 +116,7 @@ fn control_servo() -> Result<(), Box<dyn Error>> {
 }
 
 fn main() -> () {
-    println!("Input 'w' to wiggle the servo, 'c' to control it via user input");
+    println!("Input 'w' to wiggle the servo, 'c' to control it via user input, 'l' to loop");
     let input = get_user_input();
     match input.trim() {
         "w" => {
@@ -98,6 +126,10 @@ fn main() -> () {
         "c" => {
             println!("Control servo");
             control_servo().unwrap();
+        }
+        "l" => {
+            println!("Looping servo");
+            loop_servo().unwrap();
         }
         _ => {
             println!("Invalid input");
