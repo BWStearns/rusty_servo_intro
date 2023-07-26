@@ -1,6 +1,6 @@
 # Making a motor do things with Rust and a Raspberry Pi
 
-This is a simple example mostly lited directly from the rppal hardware PWM [example](https://github.com/golemparts/rppal/blob/master/examples/pwm_servo.rs). I just ran into a few setup issues and wanted to document how I got it working (mostly for when I inevitably forget a step).
+This is a simple example mostly lifted directly from the rppal hardware PWM [example](https://github.com/golemparts/rppal/blob/master/examples/pwm_servo.rs). I just ran into a few setup issues and wanted to document how I got it working (mostly for when I inevitably forget a step).
 
 <!-- Image of hardware setup -->
 ![hardware setup](./hardware_setup.jpg)
